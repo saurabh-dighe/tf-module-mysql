@@ -32,7 +32,7 @@ resource "aws_db_parameter_group" "mysql" {
 
 #Provisions security group
 resource "aws_db_subnet_group" "mysql" {
-  name       = "main"
+  name       = "roboshop-${var.ENV}-mysql"
   subnet_ids = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNET_ID 
 
   tags = {
