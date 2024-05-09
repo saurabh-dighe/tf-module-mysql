@@ -14,9 +14,10 @@ resource "aws_db_instance" "default" {
   vpc_security_group_ids  = [aws_security_group.allow_mysql.id]
 }
 
+#Provisions parameter group for RDS
 resource "aws_db_parameter_group" "mysql" {
   name   = "rds-pg"
-  family = "mysql5.6"
+  family = "mysql5.7"
 
   parameter {
     name  = "roboshop-${var.ENV}-mysql"
@@ -29,6 +30,7 @@ resource "aws_db_parameter_group" "mysql" {
   }
 }
 
+#Provisions security group
 resource "aws_db_subnet_group" "mysql" {
   name       = "main"
   subnet_ids = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNET_ID 
