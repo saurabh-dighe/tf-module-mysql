@@ -1,4 +1,3 @@
-
 #Provisions RDS instance
 resource "aws_db_instance" "mysql" {
   allocated_storage       = 10
@@ -6,7 +5,7 @@ resource "aws_db_instance" "mysql" {
   engine                  = "mysql"
   engine_version          = "5.7"
   instance_class          = "db.t3.micro"
-  username                = "admin"
+  username                = "admin1"
   password                = "RoboShop1"
   parameter_group_name    = "mysql.mysql5.7"
   skip_final_snapshot     = true
