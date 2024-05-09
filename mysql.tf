@@ -1,16 +1,42 @@
+
+#Provisions RDS instance
 resource "aws_db_instance" "default" {
-  allocated_storage    = 10
-  db_name              = "mydb"
-  engine               = "mysql"
-  engine_version       = "5.7"
-  instance_class       = "db.t3.micro"
-  username             = "foo"
-  password             = "foobarbaz"
-  parameter_group_name = "default.mysql5.7"
-  skip_final_snapshot  = true
+  allocated_storage       = 10
+  db_name                 = "roboshop-${var.ENV}-mysql"
+  engine                  = "mysql"
+  engine_version          = "5.7"
+  instance_class          = "db.t3.micro"
+  username                = "admin"
+  password                = "RoboShop1"
+  parameter_group_name    = "default.mysql5.7"
+  skip_final_snapshot     = true
+  db_subnet_group_name    = aws_db_subnet_group.mysql.name
+  vpc_security_group_ids  = [aws_security_group.allow_mysql.id]
 }
 
+resource "aws_db_parameter_group" "mysql" {
+  name   = "rds-pg"
+  family = "mysql5.6"
 
+  parameter {
+    name  = "roboshop-${var.ENV}-mysql"
+    value = "utf8"
+  }
+
+  parameter {
+    name  = "character_set_client"
+    value = "utf8"
+  }
+}
+
+resource "aws_db_subnet_group" "mysql" {
+  name       = "main"
+  subnet_ids = data.terraform_remote_state.vpc.outputs.PRIVATE_SUBNET_ID 
+
+  tags = {
+    Name = "roboshop-${var.ENV}-subent-grp"
+  }
+}
 
 
 # resource "aws_docdb_cluster" "docdb" {
