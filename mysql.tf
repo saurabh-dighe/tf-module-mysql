@@ -13,6 +13,7 @@ resource "aws_db_instance" "mysql" {
   vpc_security_group_ids  = [aws_security_group.allow_mysql.id]
 }
 
+
 #Provisions parameter group for RDS
 resource "aws_db_parameter_group" "mysql" {
   name   = "rds-pg"
