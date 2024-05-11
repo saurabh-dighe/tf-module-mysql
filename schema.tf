@@ -8,7 +8,6 @@ resource "null_resource" "schema" {
     unzip mysql.zip
     cd mysql-main
     mysql -h ${aws_db_instance.mysql.address} -ucentos -pRoboShop1 <shipping.sql
-   
     EOF
   }
 }
