@@ -14,17 +14,3 @@ resource "null_resource" "schema" {
     }
 }
 
-# resource "aws_route53_zone" "hosted-zone" {
-#   name = "roboshop-${var.ENV}-internal"
-
-#   vpc {
-#     vpc_id = data.terraform_remote_state.vpc.outputs.VPC_ID 
-#   }
-# }
-# resource "aws_route53_record" "mysql" {
-#   zone_id = aws_route53_zone.hosted-zone.zone_id
-#   name    = "mysql-${var.ENV}-roboshop-internal"
-#   type    = "CNAME"
-#   ttl     = 10
-#   records = [aws_db_instance.mysql.address]
-# }
