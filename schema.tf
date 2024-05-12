@@ -27,3 +27,11 @@ resource "null_resource" "schema" {
         EOF
     }
 }
+
+resource "aws_route53_record" "mysql" {
+  zone_id = aws_route53_zone.primary.zone_id
+  name    = "mysql-${var.ENV}-roboshop-internal"
+  type    = "CNAME"
+  ttl     = 10
+  records = [aws_db_instance.mysql.address]
+}
